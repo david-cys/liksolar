@@ -9,14 +9,22 @@ class HomeController < ApplicationController
     if params.has_key?(:postal_code)
       arcgis_service = ArcgisService.new
       @coords = arcgis_service.getCoords(params[:postal_code])
-      # profile_service = ProfileService.new
-      # @profiles = profile_service.search(params[:query])
     end
   end
 
+  def graph_init
+  end
+
   def graph
-    roof_area = params[:roof_area] = 2000
-    consumption_monthly = params[:monthly_consumption] = 1500
+    roof_area = 2000
+    consumption_monthly = 1500
+    if params.has_key?(:roof_area)
+      roof_area = params[:roof_area].to_f
+    end
+    if params.has_key?(:monthly_consumption)
+      consumption_monthly = params[:monthly_consumption].to_i
+    end
+
     consumption_yearly = consumption_monthly * 12
 
     lcoe = 0.1802

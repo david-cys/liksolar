@@ -6,6 +6,7 @@ Dapiweb::Application.routes.draw do
   # resources :profiles
   # resources :avatars, only: [:new, :create]
   get '/search', as: :search_location, to: 'home#search'
+  get '/graph_init', to: 'home#graph_init'
   get '/graph', to: 'home#graph'
 
   # You can have the root of your site routed with "root"
