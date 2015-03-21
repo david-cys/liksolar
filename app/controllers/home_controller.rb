@@ -95,6 +95,7 @@ class HomeController < ApplicationController
     @cdte_new_cost = cdte_new_cost
     @si_breakeven = si_breakeven
     @cdte_breakeven = cdte_breakeven
+
     if @si_breakeven < @cdte_breakeven
       @smaller_breakeven = @si_breakeven
     else
@@ -106,8 +107,22 @@ class HomeController < ApplicationController
     @ror_cdte = ror_cdte
     @roi_cdte = roi_cdte
 
-    @si_savings_array = @accu_savings.map{ |as| as[1] }
+    @si_savings_array   = @accu_savings.map{ |as| as[1] }
     @cdte_savings_array = @accu_savings.map{ |as| as[2] }
+
+    cost    = si_totalcost > cdte_totalcost ? cdte_totalcost : si_totalcost
+    savings = si_savings > cdte_savings ?  cdte_savings : si_savings
+    @str    = @smaller_breakeven < 20 ? 'Yes, you should get solar today!' : 'No, solar is not for you'
+    @ror    = @ror_cdte > @ror_si ? @ror_si : @ror_cdte
+
+    @result = {
+      str: @str,
+      yearlySavings: savings, #str
+      breakevenYears: @smaller_breakeven, #int
+      initOutlay: cost,
+      ror: @ror
+    }
   end
+
 end
 

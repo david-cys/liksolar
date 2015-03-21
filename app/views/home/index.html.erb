@@ -1,14 +1,13 @@
 <div class="row">
   <div class="small-12 column">
-    <h1>Index Page</h1>
+    <h1>Find out how much you can earn from SOLAR</h1>
   </div>
   <div class="small-12 column">
-    <h2>Search for your house</h2>
     <div id="map" style="display:none !important;"></div>
     <div id="search"></div>
     <%= form_tag search_location_path, :id => 'postal_code_form', :method => :get do %>
       <%= hidden_field_tag :postal_code %>
-      <a id="form_submit" href="#!">show me my roof!</a>
+      <span id="form_submit" href="#!" class="submit-button">Find my roof!</span>
     <% end %>
   </div>
 </div>
