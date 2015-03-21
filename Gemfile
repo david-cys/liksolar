@@ -30,6 +30,7 @@ gem 'jbuilder', '~> 1.2'
 gem 'httparty'
 gem 'httmultiparty'
 gem 'foundation-rails'
+gem 'highcharts-rails'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
