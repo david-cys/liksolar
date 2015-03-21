@@ -8,10 +8,32 @@
             type: 'line'
             },
           title: {
-            text: 'Solar returns'
+            text: 'Solar Installation Returns'
+          },
+          legend: {
+            align: 'right',
+            verticalAlign: 'top',
+            layout: 'vertical',
+            floating: 'true',
+            x: 0,
+            y: 150
           },
           xAxis: {
-            categories: ['Years']
+            categories: ['Years'],
+            plotLines: [{
+              color: '#ff9900',
+              dashStyle: 'solid',
+              value: "<%= @cdte_breakeven %>",
+              width: 2,
+              label: {
+                text: "Recover in <%= @smaller_breakeven %> years!",
+                align: 'right',
+                verticalAlign: 'bottom',
+                y: -10,
+                x: -5,
+                rotation: 0
+              }
+            }]
           },
           yAxis: {
             title: {
@@ -22,7 +44,7 @@
             name: 'Monocrystaline Silicon',
             data: <%= @si_savings_array %>,
             //data: [-0.2504, -0.1330, -0.0155, 0.1020, 0.2195 ],
-            lineWidth: 4,
+            lineWidth: 3,
             dashStyle: 'shortDash',
             color: '#00CC00',
             negativeColor: '#CC0000',
@@ -31,9 +53,9 @@
             name: 'CdTe Thinfilm',
               data: <%= @cdte_savings_array %>,
               //data: [-0.0498, 0.0266, 0.1030, 0.1793, 0.2557],
-              lineWidth: 4,
+              lineWidth: 3,
               dashStyle: 'longDash',
-              color: '#00CC00',
+              color: '#0066FF',
               negativeColor: '#CC0000',
               shadow: true
           }]
@@ -46,13 +68,14 @@
   <div class="small-12 column">
     <table>
       <tr>
+        <th>index</th>
         <th>si</th>
         <th>cdte</th>
       </td>
       <% @accu_savings.each_with_index do |as, index| %>
         <tr>
           <td>
-            <%= index %>
+            <%= index + 1 %>
           </td>
           <td>
             <%= @si_savings_array[index] %>
@@ -77,6 +100,7 @@
         <th>roi si</th>
         <th>ror cdte</th>
         <th>roi cdte</th>
+        <th>smaller breakeven</th>
       </tr>
       <tr>
         <td>
@@ -102,6 +126,9 @@
         </td>
         <td>
           <%= @roi_cdte %>
+        </td>
+        <td>
+          <%= @smaller_breakeven %>
         </td>
       </tr>
     </table>
