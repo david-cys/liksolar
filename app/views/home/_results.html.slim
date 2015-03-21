@@ -1,0 +1,9 @@
+.row
+  .small-12.column
+    h1=  @result[:str]
+    .row
+      .small-12.column.results
+        h3= "Initial Cost: " + number_to_currency(@result[:initOutlay])
+        h3= "Yearly Earnings: " + number_to_currency(@result[:yearlySavings])
+        h3= "Breakeven in: " + number_to_human(@result[:breakevenYears]) + "years"
+        h3= "Nett Profit/Savings: " + number_to_currency(@result[:yearlySavings]*20 - @result[:initOutlay])
