@@ -30,6 +30,7 @@ gem 'jbuilder', '~> 1.2'
 gem 'httparty'
 gem 'httmultiparty'
 gem 'foundation-rails'
+gem 'slim-rails'
 gem 'highcharts-rails'
 
 group :doc do
