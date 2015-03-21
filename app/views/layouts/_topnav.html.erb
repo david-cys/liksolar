@@ -16,9 +16,19 @@
           <%= link_to "Home", "/" %>
         </li>
         <li>
-          <%= link_to "Make a Graph", "/graph_init/" %>
+          <%= link_to "Make a Graph", "/graph_init/", :id => "graph_link" %>
         </li>
       </ul>
     </section>
   </nav>
 </div>
+
+<script>
+  $('#graph_link').click(function(e) {
+    var area = $.trim($('.dijitContentPane.result').text()).split(" ")[0];
+    if (area.length !== 0) {
+      e.preventDefault();
+      window.location.href = '/graph_init?roof_area=' + area;
+    }
+  });
+</script>
