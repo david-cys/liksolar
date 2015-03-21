@@ -13,6 +13,9 @@ class HomeController < ApplicationController
   end
 
   def graph_init
+    if params.has_key?(:roof_area)
+      @roof_area = params[:roof_area]
+    end
   end
 
   def graph
