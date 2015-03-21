@@ -6,7 +6,7 @@
         $('#container').highcharts({
           chart: {
             type: 'line'
-            },
+          },
           title: {
             text: 'Solar Installation Returns'
           },
@@ -42,7 +42,7 @@
           },
           series: [{
             name: 'Monocrystaline Silicon',
-            data: <%= @si_savings_array %>,
+            data: <%= @si_savings_array.unshift(@si_savings_array[0]) %>,
             //data: [-0.2504, -0.1330, -0.0155, 0.1020, 0.2195 ],
             lineWidth: 3,
             dashStyle: 'shortDash',
@@ -51,7 +51,7 @@
             shadow: true
           }, {
             name: 'CdTe Thinfilm',
-              data: <%= @cdte_savings_array %>,
+              data: <%= @cdte_savings_array.unshift(@cdte_savings_array[0]) %>,
               //data: [-0.0498, 0.0266, 0.1030, 0.1793, 0.2557],
               lineWidth: 3,
               dashStyle: 'longDash',

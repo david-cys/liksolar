@@ -79,11 +79,11 @@ class HomeController < ApplicationController
     si_new_cost = (si_new_consumption * lcoe) + (si_totalcost / lifetime)
     cdte_new_cost = (cdte_new_consumption * lcoe) + (cdte_totalcost / lifetime)
 
-    si_grad = (accu_savings[19][1] - accu_savings[0][1]) / accu_savings.count
-    si_breakeven = si_totalcost / si_grad
+    # si_grad = (accu_savings[19][1] - accu_savings[0][1]) / accu_savings.count
+    si_breakeven = si_totalcost / si_savings
 
-    cdte_grad = (accu_savings[19][2] - accu_savings[0][2]) / accu_savings.count
-    cdte_breakeven = cdte_totalcost / cdte_grad
+    # cdte_grad = (accu_savings[19][2] - accu_savings[0][2]) / accu_savings.count
+    cdte_breakeven = cdte_totalcost / cdte_savings
 
     ror_si = si_savings / si_totalcost
     roi_si = (si_savings * lifetime - si_totalcost) / si_totalcost
