@@ -29,7 +29,9 @@ class HomeController < ApplicationController
   end
 
   def search
-    if params.has_key?(:query)
+    if params.has_key?(:postal_code)
+      arcgis_service = ArcgisService.new
+      @coords = arcgis_service.getCoords(params[:postal_code])
       # profile_service = ProfileService.new
       # @profiles = profile_service.search(params[:query])
     end

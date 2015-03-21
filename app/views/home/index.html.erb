@@ -1,15 +1,43 @@
-<link rel="stylesheet" href="http://js.arcgis.com/3.13/esri/css/esri.css">
-<script src="http://js.arcgis.com/3.13/"></script>
 <div class="row">
   <div class="small-12 column">
     <h1>Index Page</h1>
   </div>
   <div class="small-12 column">
     <h2>Search for your house</h2>
-    <%= form_tag search_location_path, :method => :get do %>
-      <%= label_tag :query %>
-      <%= text_field_tag :query %>
-      <%= submit_tag "Search" %>
+    <div id="map" style="display:none !important;"></div>
+    <div id="search"></div>
+    <%= form_tag search_location_path, :id => 'postal_code_form', :method => :get do %>
+      <%= hidden_field_tag :postal_code %>
+      <a id="form_submit" href="#!">show me my roof!</a>
     <% end %>
   </div>
 </div>
+
+ <script src="http://js.arcgis.com/3.13/"></script>
+<script type="text/javascript">
+  require([
+    "esri/map",
+    "esri/dijit/Search",
+    "dojo/domReady!"
+  ], function (Map, Search) {
+     var map = new Map("map", {
+        basemap: "gray",
+        center: [-120.435, 46.159], // lon, lat
+        zoom: 7
+     });
+
+     var s = new Search({
+        map: map
+     }, "search");
+     s.startup();
+
+  });
+
+  $(window).load(function() {
+    $("#form_submit").click(function(e) {
+      var si = $("#search_input").val();
+      $("#postal_code").val(si);
+      $("#postal_code_form").submit();
+    });
+  });
+</script>

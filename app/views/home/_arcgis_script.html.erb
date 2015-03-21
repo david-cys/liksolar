@@ -39,8 +39,13 @@ require([
 
     map = new Map("map", {
       basemap: "satellite",
-      center: [103.8,1.35],
-      zoom: 13
+      <% if @coords.blank? %>
+        center: [103.8,1.35],
+        zoom: 13
+      <% else %>
+        center: [<%= @coords["x"] %>, <%= @coords["y"] %>],
+        zoom: 20
+      <% end %>
     });
 
     var sfs = new SimpleFillSymbol(
