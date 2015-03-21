@@ -37,11 +37,11 @@ class HomeController < ApplicationController
     lifetime = 20
 
     si_wattsqm = 215
-    si_costpw = 1.794
+    si_costpw = 1.794 / 2
     si_eff = 0.2
 
     cdte_wattsqm = 130
-    cdte_costpw = 1.7112
+    cdte_costpw = 1.7112 / 2
     cdte_eff = 0.13
 
     si_output = si_wattsqm * roof_area
