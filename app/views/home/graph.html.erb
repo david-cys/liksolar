@@ -1,42 +1,110 @@
-<table>
-  <tr>
-    <th>accu savings</th>
-    <th>si new cost</th>
-    <th>cdte new cost</th>
-    <th>si breakeven</th>
-    <th>cdte breakeven</th>
-    <th>ror si</th>
-    <th>roi si</th>
-    <th>ror cdte</th>
-    <th>roi cdte</th>
-  </tr>
-  <tr>
-    <td>
-      <%= @accu_savings %>
-    </td>
-    <td>
-      <%= @si_new_cost %>
-    </td>
-    <td>
-      <%= @cdte_new_cost %>
-    </td>
-    <td>
-      <%= @si_breakeven %>
-    </td>
-    <td>
-      <%= @cdte_breakeven %>
-    </td>
-    <td>
-      <%= @ror_si %>
-    </td>
-    <td>
-      <%= @roi_si %>
-    </td>
-    <td>
-      <%= @ror_cdte %>
-    </td>
-    <td>
-      <%= @roi_cdte %>
-    </td>
-  </tr>
-</table>
+<div class="row">
+  <div class="small-12 column">
+    <div id="container" style="width:100%; height: 80vh;"></div>
+    <script>
+      $(function () {
+        $('#container').highcharts({
+          chart: {
+            type: 'line'
+            },
+          title: {
+            text: 'Solar returns'
+          },
+          xAxis: {
+            categories: ['Years']
+          },
+          yAxis: {
+            title: {
+              text: 'Profits ($)'
+            }
+          },
+          series: [{
+            name: 'Monocrystaline Silicon',
+            data: <%= @si_savings_array %>,
+            //data: [-0.2504, -0.1330, -0.0155, 0.1020, 0.2195 ],
+            lineWidth: 4,
+            dashStyle: 'shortDash',
+            color: '#00CC00',
+            negativeColor: '#CC0000',
+            shadow: true
+          }, {
+            name: 'CdTe Thinfilm',
+              data: <%= @cdte_savings_array %>,
+              //data: [-0.0498, 0.0266, 0.1030, 0.1793, 0.2557],
+              lineWidth: 4,
+              dashStyle: 'longDash',
+              color: '#00CC00',
+              negativeColor: '#CC0000',
+              shadow: true
+          }]
+        });
+      });
+    </script>
+  </div>
+</div>
+<div class="row">
+  <div class="small-12 column">
+    <table>
+      <tr>
+        <th>si</th>
+        <th>cdte</th>
+      </td>
+      <% @accu_savings.each_with_index do |as, index| %>
+        <tr>
+          <td>
+            <%= index %>
+          </td>
+          <td>
+            <%= @si_savings_array[index] %>
+          </td>
+          <td>
+            <%= @cdte_savings_array[index] %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+<div class="row">
+  <div class="small-12 column">
+    <table>
+      <tr>
+        <th>si new cost</th>
+        <th>cdte new cost</th>
+        <th>si breakeven</th>
+        <th>cdte breakeven</th>
+        <th>ror si</th>
+        <th>roi si</th>
+        <th>ror cdte</th>
+        <th>roi cdte</th>
+      </tr>
+      <tr>
+        <td>
+          <%= @si_new_cost %>
+        </td>
+        <td>
+          <%= @cdte_new_cost %>
+        </td>
+        <td>
+          <%= @si_breakeven %>
+        </td>
+        <td>
+          <%= @cdte_breakeven %>
+        </td>
+        <td>
+          <%= @ror_si %>
+        </td>
+        <td>
+          <%= @roi_si %>
+        </td>
+        <td>
+          <%= @ror_cdte %>
+        </td>
+        <td>
+          <%= @roi_cdte %>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+</div>

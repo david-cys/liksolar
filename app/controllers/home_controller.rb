@@ -88,6 +88,9 @@ class HomeController < ApplicationController
     @roi_si = roi_si
     @ror_cdte = ror_cdte
     @roi_cdte = roi_cdte
+
+    @si_savings_array = @accu_savings.map{ |as| as[1] }
+    @cdte_savings_array = @accu_savings.map{ |as| as[2] }
   end
 end
 
