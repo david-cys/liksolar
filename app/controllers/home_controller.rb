@@ -95,6 +95,12 @@ class HomeController < ApplicationController
     @cdte_new_cost = cdte_new_cost
     @si_breakeven = si_breakeven
     @cdte_breakeven = cdte_breakeven
+    if @si_breakeven < @cdte_breakeven
+      @smaller_breakeven = @si_breakeven
+    else
+      @smaller_breakeven = @cdte_breakeven
+    end
+
     @ror_si = ror_si
     @roi_si = roi_si
     @ror_cdte = ror_cdte

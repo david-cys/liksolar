@@ -3,7 +3,7 @@
     <%= form_tag '/graph', :id => 'graph_form', :method => :get do %>
       <%= label_tag :roof_area, "Roof area in square metres" %>
       <%= text_field_tag :roof_area, @roof_area %>
-      <%= label_tag :monthly_consumption %>
+      <%= label_tag :monthly_consumption, "Monthly energy consumption in kwh"  %>
       <%= text_field_tag :monthly_consumption, '1500' %>
       <%= submit_tag "Plot my graph!" %>
     <% end %>

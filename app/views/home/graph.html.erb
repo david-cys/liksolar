@@ -23,7 +23,7 @@
             plotLines: [{
               color: '#ff9900',
               dashStyle: 'solid',
-              value: "<%= @cdte_breakeven %>",
+              value: "<%= @smaller_breakeven %>",
               width: 2,
               label: {
                 text: "Recover in <%= @smaller_breakeven %> years!",
@@ -64,7 +64,7 @@
     </script>
   </div>
 </div>
-<div class="row">
+<div class="row hide">
   <div class="small-12 column">
     <table>
       <tr>
@@ -92,29 +92,12 @@
   <div class="small-12 column">
     <table>
       <tr>
-        <th>si new cost</th>
-        <th>cdte new cost</th>
-        <th>si breakeven</th>
-        <th>cdte breakeven</th>
-        <th>ror si</th>
-        <th>roi si</th>
-        <th>ror cdte</th>
-        <th>roi cdte</th>
-        <th>smaller breakeven</th>
+        <th>Rate of return: Monocrystaline Silicon</th>
+        <th>Return on investment: Monocrystaline Silicon</th>
+        <th>Rate of return: CdTe</th>
+        <th>Rate of investment: CdTe</th>
       </tr>
       <tr>
-        <td>
-          <%= @si_new_cost %>
-        </td>
-        <td>
-          <%= @cdte_new_cost %>
-        </td>
-        <td>
-          <%= @si_breakeven %>
-        </td>
-        <td>
-          <%= @cdte_breakeven %>
-        </td>
         <td>
           <%= @ror_si %>
         </td>
@@ -126,9 +109,6 @@
         </td>
         <td>
           <%= @roi_cdte %>
-        </td>
-        <td>
-          <%= @smaller_breakeven %>
         </td>
       </tr>
     </table>
