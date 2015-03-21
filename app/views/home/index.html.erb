@@ -1,0 +1,15 @@
+<link rel="stylesheet" href="http://js.arcgis.com/3.13/esri/css/esri.css">
+<script src="http://js.arcgis.com/3.13/"></script>
+<div class="row">
+  <div class="small-12 column">
+    <h1>Index Page</h1>
+  </div>
+  <div class="small-12 column">
+    <h2>Search for your house</h2>
+    <%= form_tag search_location_path, :method => :get do %>
+      <%= label_tag :query %>
+      <%= text_field_tag :query %>
+      <%= submit_tag "Search" %>
+    <% end %>
+  </div>
+</div>

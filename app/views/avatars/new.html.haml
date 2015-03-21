@@ -1,0 +1,10 @@
+.row
+  .small-12.column
+    %h1 Add an Avatar
+  .small-12.column
+    = form_tag avatars_path, multipart: true, :method => :post do
+      = label_tag :profile_uuid
+      = text_field_tag :profile_uuid, @profile_uuid
+      = label_tag :image
+      = file_field_tag :image
+      = submit_tag "Add"

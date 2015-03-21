@@ -1,0 +1,21 @@
+.row
+  .small-12.column
+    %h1 Profile Index
+  .small-12.column
+    %table
+      %tr
+        %th id
+        %th email
+        %th display_name
+        %th description
+        %th
+        %th
+      - @profiles.each do |profile|
+        %tr
+          %td= profile.id
+          %td= profile.email
+          %td= profile.display_name
+          %td= profile.description
+          %td= link_to "Show", profile_path(profile.id)
+          %td= link_to "Add image", new_avatar_path(profile_uuid: profile.id)
+

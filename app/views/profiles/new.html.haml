@@ -1,0 +1,12 @@
+.row
+  .small-12.column
+    %h1 Profile New
+  .small-12.column
+    = form_tag profiles_path, :method => :post do
+      = label_tag :display_name
+      = text_field_tag :display_name
+      = label_tag :email
+      = text_field_tag :email
+      = label_tag :description
+      = text_field_tag :description
+      = submit_tag "Create"
