@@ -5,29 +5,6 @@ class HomeController < ApplicationController
   def new
   end
 
-  def create
-    profile_service = ProfileService.new
-    @profile = profile_service.create(
-      "display_name" => params["display_name"],
-      "description" => params["description"],
-      "email" => params["email"]
-    )
-    if @profile
-      redirect_to profile_path(@profile.id)
-    else
-      render text: "Not Found", status: 404
-    end
-  end
-
-  def show
-    profile_service = ProfileService.new
-    @profile = profile_service.get(params[:id])
-    avatar_service = AvatarService.new
-    @avatar = avatar_service.get_latest(@profile.id)
-    render text: "Not found", status: 404 if !@profile
-    render json: "hello"
-  end
-
   def search
     if params.has_key?(:postal_code)
       arcgis_service = ArcgisService.new
@@ -35,6 +12,82 @@ class HomeController < ApplicationController
       # profile_service = ProfileService.new
       # @profiles = profile_service.search(params[:query])
     end
+  end
+
+  def graph
+    roof_area = params[:roof_area] = 2000
+    consumption_monthly = params[:monthly_consumption] = 1500
+    consumption_yearly = consumption_monthly * 12
+
+    lcoe = 0.1802
+    # arearatio = 0.8
+    labour = 2
+    irradiance = 1630
+    lifetime = 20
+
+    si_wattsqm = 215
+    si_costpw = 1.794
+    si_eff = 0.2
+
+    cdte_wattsqm = 130
+    cdte_costpw = 1.7112
+    cdte_eff = 0.13
+
+    si_output = si_wattsqm * roof_area
+    cdte_output = cdte_wattsqm * roof_area
+
+    si_totalcost = si_output * si_costpw * labour
+    cdte_totalcost = cdte_output * cdte_costpw * labour
+
+    si_powergen = irradiance * si_eff * roof_area
+    cdte_powergen = irradiance * cdte_eff * roof_area
+
+    # annual_cost = consumption_monthly * lcoe
+
+    si_new_consumption = consumption_yearly - si_powergen
+    cdte_new_consumption = consumption_yearly - cdte_powergen
+
+    si_savings = (consumption_yearly - si_new_consumption) * lcoe
+    cdte_savings = (consumption_yearly - cdte_new_consumption) * lcoe
+
+    accu_savings = Array.new(20) { Array.new(3, 0) }
+    accu_savings[0][1] = -si_totalcost + si_savings
+    accu_savings[0][2] = -cdte_totalcost + cdte_savings
+
+    accu_savings.each_with_index do |accu_saving, index|
+      accu_saving[0] = index + 1
+    end
+
+    accu_savings.each_with_index do |accu_saving, index|
+      unless (index == 0)
+        accu_saving[1] = accu_savings[index-1][1] + si_savings
+        accu_saving[2] = accu_savings[index-1][2] + cdte_savings
+      end
+    end
+
+    si_new_cost = (si_new_consumption * lcoe) + (si_totalcost / lifetime)
+    cdte_new_cost = (cdte_new_consumption * lcoe) + (cdte_totalcost / lifetime)
+
+    si_grad = (accu_savings[19][1] - accu_savings[0][1]) / accu_savings.count
+    si_breakeven = si_totalcost / si_grad
+
+    cdte_grad = (accu_savings[19][2] - accu_savings[0][2]) / accu_savings.count
+    cdte_breakeven = cdte_totalcost / cdte_grad
+
+    ror_si = si_savings / si_totalcost
+    roi_si = (si_savings * lifetime - si_totalcost) / si_totalcost
+    ror_cdte = cdte_savings / cdte_totalcost
+    roi_cdte = (cdte_savings * lifetime - cdte_totalcost) / cdte_totalcost
+
+    @accu_savings = accu_savings
+    @si_new_cost = si_new_cost
+    @cdte_new_cost = cdte_new_cost
+    @si_breakeven = si_breakeven
+    @cdte_breakeven = cdte_breakeven
+    @ror_si = ror_si
+    @roi_si = roi_si
+    @ror_cdte = ror_cdte
+    @roi_cdte = roi_cdte
   end
 end
 
